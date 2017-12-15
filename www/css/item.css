@@ -1,0 +1,251 @@
+@import url(http://fonts.googleapis.com/earlyaccess/notosansjp.css);
+@import url(http://fonts.googleapis.com/earlyaccess/notosansjapanese.css);
+
+/*<<item_total>>*/
+/*tatal_display
+#total{
+    letter-spacing: .1em;    
+    margin-top: 2em;
+    margin-right: auto;
+    margin-bottom: 2em;
+    margin-left: auto;
+}
+
+/*かしかり合計*/
+
+
+/*
+.total_img{
+    text-align: center;
+}
+
+.total_img span{
+    display: inline-block;
+    margin-right: .2em;
+    margin-left: .2em;
+    padding-top: .4em;
+    padding-right: 1.6em;
+    padding-bottom: 5em;
+    padding-left: 1.6em;
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+.total_img img{
+    width: 4.5em;
+    height: 4.5em;
+}
+
+/*
+.total_img img{
+    width: 6em;
+    height: 6em;
+    margin-right: .2em;
+    margin-left: .2em;
+    padding-top: .4em;
+    padding-right: 1em;
+    padding-bottom: 5em;
+    padding-left: 1em;
+    background-color: #fff;
+    border-radius: 10px;
+    border: 2.5px dotted #f2f2f2;
+}
+
+.total_img::before,
+.total_img::after{
+    font-family: Lato, "Noto Sans Japanese", "游ゴシック Medium", "游ゴシック体", "Yu Gothic Medium", YuGothic, "ヒラギノ角ゴ ProN", "Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+    
+    font-size: .8em;
+    font-weight: bold;
+}
+.total_img::before{
+    color: #d6431f;
+    color: #e47b5f;
+    content: "借りている総額";  
+}
+.total_img::after{
+    left: 3em;
+    bottom: 5em;
+    color: #0081bf;
+    color: #4aa8d6;
+    content: "貸している総額";    
+}
+*/
+
+
+
+/*総借り合計*/
+/*
+.total_borrowing{
+    border-bottom: 4px solid #f9d472;
+}
+
+/*総貸し合計
+.total_lending{
+    border-bottom: 4px solid #dadada;
+}
+
+/*共通仕様
+[class^="total_"]{
+    margin: 1.5em auto;
+    font-size: 1.2em;
+}
+
+
+
+/*<<items>>*/
+
+/*search input*/
+.search-input--max,
+.search-input--material{
+    padding: 1.3em 3.5em;
+}
+
+/*item_button*/
+button.custom{
+    position: relative;
+    width: 100%;
+    display: block;
+    cursor: pointer;
+    border: none;
+    appearance: none;
+    /*↑以上標準スタイリング無効化↑*/
+    padding: .5em 1.5em;
+    background-color: #fff;
+    /*border*/
+    border-top: 0px solid #fff;
+    border-bottom: 2px solid #f3f3f3;
+    /*color*/
+    color: #3a3a3a; 
+    transition: .2s;
+}
+button.custom:active{
+    background-color: #efefef;
+    /*border*/
+    border-top: 2px solid #efefef;
+    border-right-color: #efefef;
+    border-bottom: 0px solid #eee;
+    border-left-color: #efefef;
+    transition: .1s;
+}
+
+
+/*buttonの要素*/
+.name{
+    position: relative;
+    padding-top: .6em;
+    padding-left: 2.7em;
+    text-align: left;
+    font-size: 2em;
+}
+
+.name img{
+    position: absolute;
+    width: 2.3em;
+    height: 2.3em;
+    top: .2em;
+    left: -.2em;
+}
+.name::after{
+    font-family: Lato, "Noto Sans Japanese", "游ゴシック Medium", "游ゴシック体", "Yu Gothic Medium", YuGothic, "ヒラギノ角ゴ ProN", "Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+    position: absolute;
+    font-size: .4em;
+    font-weight: bold;
+    top: 6.3em;
+    left: -.1em;
+}
+.borrowing .name::after{
+    color: #d6431f;
+        color: #e47b5f;
+    content: "借りている";  
+}
+.lending .name::after{
+    color: #0081bf;
+    color: #4aa8d6;
+    content: "貸している";    
+}
+
+.money{
+    text-align: right;
+    font-size: 2em;
+}
+/*for borrowing*/
+.borrowing div.money{
+    color: #e47b5f;
+}
+
+.update{
+    padding-top: .2em;
+    text-align: right;
+}
+
+.attention{
+    border-bottom: 3px dotted #e67b5f;
+}
+
+/*貸している
+.lending{
+    border: none;
+    border-top: 6px double #dfdfdf;
+}
+.lending::before{
+    content: '';
+    width: 0;
+    height: 0;
+    border-width: 12px 24px 12px 0px;
+    border-style: solid;
+    border-color:transparent #ddd transparent transparent;
+    position: absolute;
+	bottom:1.2em;
+    right: 1.0em;
+    margin-right: .6px;
+	z-index: 0;
+}
+.lending::after{
+    content: '';
+    width: 0;
+    height: 0;
+    border-width: 10px 20px 10px 0px;
+    border-style: solid;
+    border-color:transparent #fff transparent transparent;
+	position: absolute;
+	bottom:1.2em;
+    margin-bottom: 2.0px;
+    right: 1.0em;
+    margin-right: 2.3px;
+	z-index: 0;
+}
+*/
+
+/*借りている
+.borrowing{
+    border: none;
+    border-top: 6px double #f9d472;
+}
+.borrowing::before{
+    content: '';
+    width: 0;
+    height: 0;    
+    border-width: 12px 0px 12px 24px;
+    border-style: solid;
+	border-color:transparent transparent transparent #f9d472;
+	position: absolute;
+	bottom:1.2em;
+    right: 1.0em;
+	z-index: 0;
+}
+.borrowing::after{
+    content: '';
+    width: 0;
+    height: 0;  
+    border-width: 10px 0px 10px 20px;
+    border-style: solid;
+    border-color:transparent transparent transparent #fff;
+	position: absolute;
+	bottom:1.2em;
+    margin-bottom: 2.1px;
+    right: 1.0em;
+    margin-right: 2.5px;
+	z-index: 0;
+}
+*/

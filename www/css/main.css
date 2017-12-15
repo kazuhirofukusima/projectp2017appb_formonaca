@@ -1,0 +1,41 @@
+/*----common----*/
+
+/*tag*/
+.page--font{
+    font-family: 'Yu Gothic','arial';
+    color: #3a3a3a;
+}
+
+p{
+    text-align: center;
+}
+
+/*class*/
+.small{
+    font-size: .8em;
+}
+
+/*title*/
+.title{
+    margin: .8em auto;
+    font-size: 1.3em;
+    letter-spacing: .3em;
+}
+
+/*focus*/
+*:focus {
+  outline: none;
+}
+
+/*----specific----*/
+
+/*<<android back-ground-color>>*/
+.toolbar--material,
+.tabbar--material{
+    background-color: #f9f9f9;
+}
+
+.toolbar--material div,
+.tabbar--material div{
+    color: #555;
+}

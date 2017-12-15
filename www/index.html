@@ -1,0 +1,328 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Content-Security-Policy" content="default-src * data: gap: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+    <script src="components/loader.js"></script>
+    <script src="lib/onsenui/js/onsenui.min.js"></script>
+
+    <link rel="stylesheet" href="components/loader.css">
+    <link rel="stylesheet" href="lib/onsenui/css/onsenui.css">
+    <link rel="stylesheet" href="lib/onsenui/css/onsen-css-components.css">
+    
+    <!-- カスタムjs -->
+    <script src="js/main.js"></script>
+    
+    <!-- カスタムcss -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/item.css">
+    <link rel="stylesheet" href="css/dialog.css">
+    <link rel="stylesheet" href="css/calc.css">
+    <link rel="stylesheet" href="css/list.css">    
+</head>
+
+<body>
+
+    <ons-page>
+        <ons-toolbar>
+            <div class="center">かしかり一覧</div>
+        </ons-toolbar>
+        <ons-tabbar animation="none" id="appTabbar" position="auto" modifier="top-border">
+            <ons-tab label="かしかり一覧" icon="fa-list-alt" page="list.html"></ons-tab>
+            <ons-tab label="金額入力" icon="fa-jpy" page="input.html" active=""></ons-tab>
+            <ons-tab label="グループ/ともだち" icon="fa-users" page="friends.html"></ons-tab>
+        </ons-tabbar>
+        
+        <!-- dialog -->
+        <ons-alert-dialog id="dialog_pay" cancelable="">
+            <div class="alert-dialog-title">支払い</div>
+            <div class="alert-dialog-content">"全額"か"一部"か種類を選択</div>
+            <div class="alert-dialog-footer">
+                <button class="alert-dialog-button bold" onclick="changeDialog('dialog_pay', 'dialog_confirm')">全額支払い</button>
+                <button class="alert-dialog-button bold" onclick="changeDialog('dialog_pay', 'dialog_calc')">一部支払い</button>
+                <button class="alert-dialog-button" onclick="hideDialog('dialog_pay')">やめる</button>
+            </div>
+        </ons-alert-dialog>
+    
+        <ons-alert-dialog id="dialog_confirm" cancelable="">
+            <div class="alert-dialog-title">確認</div>
+            <div class="alert-dialog-content">本当に全額支払いますか</div>
+            <div class="alert-dialog-footer">
+                <button class="alert-dialog-button bold" onclick="hideDialog('dialog_confirm')">はい</button>
+                <button class="alert-dialog-button" onclick="changeDialog('dialog_confirm', 'dialog_pay')">もどる</button>
+            </div>
+        </ons-alert-dialog>
+    
+        <ons-alert-dialog id="dialog_receive" cancelable="">
+            <div class="alert-dialog-title">期限設定</div>
+            <div class="alert-dialog-content">支払い期限を設定しますか？</div>
+            <div class="alert-dialog-footer">
+                <button class="alert-dialog-button bold" onclick="hideDialog('dialog_receive')">はい</button>
+                <button class="alert-dialog-button" onclick="hideDialog('dialog_receive')">やめる</button>
+            </div>
+        </ons-alert-dialog>
+        
+        <ons-alert-dialog id="dialog_calc">
+            <div class="alert-dialog-content">支払い額を入力</div>
+            <div id="calc">
+                <input type="text" id="name" placeholder="項目名を入力 (任意)">
+                <input type="text" id="result" value="￥0">
+                <table>
+                    <tr>
+                        <td>7</td>
+                        <td>8</td>
+                        <td>9</td>
+                        <td id="backspace" rowspan="3">←</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>5</td>
+                        <td>6</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">0</td>
+                        <td id="clear">C</td>
+                    </tr>
+                </table>
+    
+                <div class="alert-dialog-footer">
+                    <ons-button modifier="quiet" onclick="changeDialog('dialog_calc', 'dialog_option')">
+                        <ons-icon icon="fa-cog"> 支払いオプション</ons-icon>
+                    </ons-button>
+                    <button class="alert-dialog-button bold" onclick="input()">入力完了</button>
+                    <button class="alert-dialog-button" onclick="changeDialog('dialog_calc', 'dialog_pay')">もどる</button>
+                </div>
+            </div>
+            <script src="js/calc.js"></script>
+        </ons-alert-dialog>
+        
+        <ons-alert-dialog id="dialog_option" cancelable="">
+            <p>this is option dialog</p>
+            <div class="alert-dialog-footer">
+                <button class="alert-dialog-button bold" onclick="changeDialog('dialog_option' ,'dialog_calc')">もどる</button>
+            </div>
+        </ons-alert-dialog>
+        
+        
+        <script>
+            ons.getScriptPage().addEventListener('prechange', function(event) {
+                if (event.target.matches('#appTabbar')) {
+                    event.currentTarget.querySelector('ons-toolbar .center').innerHTML = event.tabItem.getAttribute('label');
+                }
+            });
+
+            /*for dialog*/
+            var showDialog = function(id) {
+                document.getElementById(id).show();
+            };
+        
+            var hideDialog = function(id) {
+                document.getElementById(id).hide();
+            };
+        
+            var changeDialog = function(hideId, showId){
+                hideDialog(hideId);
+                showDialog(showId);
+            };
+                         
+            /*入力完了時の挙動・今はただ項目名と金額を初期化してるだけ*/             
+            var input = function(){
+                hideDialog('dialog_calc');
+                $('#name').val('');
+                $('#result').val('￥0');
+            };  
+        </script>
+    </ons-page>
+    
+    
+    <!-- list.html --><!--  --><!--  --><!--  -->
+    <template id="list.html">
+        <ons-page id="list-page">    
+            
+            <!--
+            <div id="total">
+                <p class="total_img">
+                    <span><img src="img/borrowing_all.png" alt="" /></span>
+                    <span><img src="img/lending_all.png" alt="" /></span>
+                </p>
+            </div>
+            -->
+    
+            <p><ons-search-input placeholder="Search" modifier="max"></ons-search-input></p>            
+
+            <p class="center small">タップして支払いや期限設定ができます</p>
+        
+            <div id="items">
+                
+                <button class="custom borrowing" type="button" ontouchstart="" onclick="showDialog('dialog_pay')">
+                        <div class="name">
+                            <span><img src="img/borrowing.png" alt="" /></span>
+                            <span>すねお</span>
+                        </div>                
+                        <div class="money">
+                            <span>3,000円</span>
+                        </div>
+                        <div class="update">
+                            <span>最終更新：10/29</span>
+                        </div>
+                </button>
+
+                <button class="custom lending" type="button" ontouchstart="">
+                        <div class="name">
+                            <span><img src="img/lending.png" alt="" /></span>
+                            <span>さとー</span>
+                        </div>                
+                        <div class="money">
+                            <span>12,000円</span>
+                        </div>
+                        <div class="update">
+                            <span>最終更新：10/2</span>
+                        </div>
+                </button>
+
+                <button class="custom borrowing" type="button" ontouchstart="">
+                        <div class="name">
+                            <span><img src="img/borrowing.png" alt="" /></span>
+                            <span>スズキ</span>
+                        </div>                
+                        <div class="money">
+                            <span>2,000円</span>
+                        </div>
+                        <div class="update">
+                            <span>最終更新：7/9</span>
+                        </div>
+                </button>
+
+                <button class="custom lending" type="button" ontouchstart="">
+                        <div class="name">
+                            <span><img src="img/lending.png" alt="" /></span>
+                            <span>なかむー</span>
+                        </div>                
+                        <div class="money">
+                            <span>8,000円</span>
+                        </div>
+                        <div class="update">
+                            <span>最終更新：4/29</span>
+                        </div>
+                </button>
+
+                <button class="custom lending" type="button" ontouchstart="">
+                        <div class="name">
+                            <span><img src="img/lending.png" alt="" /></span>
+                            <span>番長</span>
+                        </div>                
+                        <div class="money">
+                            <span>6,000円</span>
+                        </div>
+                        <div class="update">
+                            <span class="attention">最終更新：2016/12/29</span>
+                        </div>
+                </button>
+
+            </div>
+        </ons-page>
+    </template>
+
+
+    <!-- input.html --><!--  --><!--  --><!--  -->
+    <template id="input.html">
+        <ons-page id="input-page">
+            <p class="center small">タップすると友達やグループに対する支払いを追加できます</p>
+
+            <ons-list>
+                <ons-list-item modifier="chevron modi" onclick="alert('dssss')">
+                    <div class="left"><ons-icon icon="md-face" class="list-item__icon" /></div>
+                    <div class="center">
+                        <span class="list-item">佐々木</span>
+                    </div>
+                </ons-list-item>    
+                <ons-list-item modifier="chevron modi" onclick="alert('dssss')">
+                    <div class="left"><ons-icon icon="ion-person-stalker" class="list-item__icon" /></div>
+                    <div class="center">
+                        <span class="list-item">九州旅行</span>
+                    </div>
+                </ons-list-item>   
+                <ons-list-item modifier="chevron modi" onclick="alert('dssss')">
+                    <div class="left"><ons-icon icon="md-face" class="list-item__icon" /></div>
+                    <div class="center">
+                        <span class="list-item">なかむー</span>
+                    </div>
+                </ons-list-item>
+                <ons-list-item modifier="chevron modi" onclick="alert('dssss')">
+                    <div class="left"><ons-icon icon="md-face" class="list-item__icon" /></div>
+                    <div class="center">
+                        <span class="list-item">番長</span>
+                    </div>
+                </ons-list-item>                
+            </ons-list>   
+        </ons-page>
+    </template>
+
+    <!-- group.html --><!--  --><!--  --><!--  -->
+    <template id="friends.html">
+        <ons-page id="friends-page">
+            <ons-list id="groupList">
+                <ons-list-header>グループリスト</ons-list-header>
+                <ons-list-item modifier="chevron modi" onclick="alert('dssss')">
+                    <div class="left"><ons-icon icon="ion-person-stalker" class="list-item__icon" /></div>
+                    <div class="center">
+                        <span class="list-item">九州旅行</span>
+                    </div>
+                </ons-list-item>           
+            </ons-list>          
+            
+            <ons-list id="friendList">
+                <ons-list-header>ともだちリスト</ons-list-header>
+                <ons-list-item modifier="chevron modi" onclick="alert('dssss')">
+                    <div class="left"><ons-icon icon="md-face" class="list-item__icon" /></div>
+                    <div class="center">
+                        <span class="list-item">佐々木</span>
+                    </div>
+                </ons-list-item>  
+                <ons-list-item modifier="chevron modi" onclick="alert('dssss')">
+                    <div class="left"><ons-icon icon="md-face" class="list-item__icon" /></div>
+                    <div class="center">
+                        <span class="list-item">さとー</span>
+                    </div>
+                </ons-list-item>
+                <ons-list-item modifier="chevron modi" onclick="alert('dssss')">
+                    <div class="left"><ons-icon icon="md-face" class="list-item__icon" /></div>
+                    <div class="center">
+                        <span class="list-item">スズキ</span>
+                    </div>
+                </ons-list-item>  
+                <ons-list-item modifier="chevron modi" onclick="alert('dssss')">
+                    <div class="left"><ons-icon icon="md-face" class="list-item__icon" /></div>
+                    <div class="center">
+                        <span class="list-item">田中</span>
+                    </div>
+                </ons-list-item>  
+                <ons-list-item modifier="chevron modi" onclick="alert('dssss')">
+                    <div class="left"><ons-icon icon="md-face" class="list-item__icon" /></div>
+                    <div class="center">
+                        <span class="list-item">なかむー</span>
+                    </div>
+                </ons-list-item>
+                <ons-list-item modifier="chevron modi" onclick="alert('dssss')">
+                    <div class="left"><ons-icon icon="md-face" class="list-item__icon" /></div>
+                    <div class="center">
+                        <span class="list-item">番長</span>
+                    </div>
+                </ons-list-item>                  
+            </ons-list>       
+            
+            <ons-fab position="bottom right">
+                <ons-icon icon="fa-user-plus"></ons-icon>
+            </ons-fab>            
+        </ons-page>
+    </template>
+
+</body>
+</html>

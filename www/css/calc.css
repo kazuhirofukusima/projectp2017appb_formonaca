@@ -1,0 +1,76 @@
+/*<<calc>>*/
+
+/*name*/
+/*result*/
+#name,
+#result{
+    display: block;
+    appearance: none;
+    border: none;
+    border-radius: 0;
+    width: 245px;
+    margin: 0 auto;
+    letter-spacing: .1em;
+    text-align: center;
+    background-color: inherit;
+    border-bottom: 2px dotted #e0e0e0;  
+    color: #5a5a5a;
+}
+#name{
+    margin-bottom: .3em;
+    padding-right: .2em;
+    padding-left: 0;
+    padding-bottom: .4em;
+    font-size: 1.1em;
+}
+
+#result{
+    margin-bottom: .5em; 
+    padding-right: .1em;
+    padding-left: 0;
+    font-size: 1.5em;
+}
+
+
+/*main*/
+table{
+    width: 95%;
+    margin: .2em auto;
+    font-size: 1.5em;
+}
+
+td{
+    text-align: center;
+    margin: 1em;
+    padding: .4em 0;
+    background-color: #fff;
+    border-radius: 3px;
+    border: 1px solid #f6f6f6;
+    border-bottom: 2px solid #ececec;
+    color: #5a5a5a;
+    transition-duration: .1s;
+}
+td:active{
+    background-color: #e3e3e3;
+    border-bottom: 0px solid #c9c9c9;
+}
+
+#backspace,
+#clear{
+    background-color: #f4c444;
+    border-bottom-color: #f2be30;
+    color: #fff;
+}
+#backspace:active,
+#clear:active{
+    background-color: #edb728;
+    border-bottom-color: #d19e17;
+}
+
+/*optional button*/
+.button--quiet{
+    display: block;
+    border-color: #fff;
+    font-size: .7em;
+    text-align: center;
+}
